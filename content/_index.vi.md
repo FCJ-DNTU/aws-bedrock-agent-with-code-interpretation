@@ -1,40 +1,34 @@
-+++
-title = "Thiết lập Tài Khoản AWS"
-date = 2021
-weight = 1
-chapter = false
-+++
+---
+title: "Amazon Bedrock Agent Workshop: Tích hợp khả năng biên dịch Code"
+weight: 1
+chapter: false
+---
 
-# Tạo tài khoản AWS đầu tiên
-
-#### Tổng quan
-Trong bài lab đầu tiên này, bạn sẽ tạo mới **tài khoản AWS** đầu tiên của mình, tạo **MFA** (Multi-factor Authentication) để gia tăng bảo mật tài khoản của bạn. Bước tiếp theo bạn sẽ tạo **Admin Group**, **Admin User** để quản lý quyền truy cập vào các tài nguyên trong tài khoản của mình thay vì sử dụng user root.\
-Cuối cùng, nếu quá trình xác thực tài khoản của bạn có vấn đề, bạn sẽ được hướng dẫn hỗ trợ xác thực tài khoản với **AWS Support**.
-
-#### Tài khoản AWS (AWS Account)
-**Tài khoản AWS** là phương tiện để bạn có thể truy cập và sử dụng những tài nguyên và dịch vụ của AWS. Theo mặc định, mỗi tài khoản AWS sẽ có một *root user*. *Root user* có toàn quyền với tài khoản AWS của bạn, và quyền hạn của root user không thể bị giới hạn. Nếu bạn mới sử dụng tài khoản AWS lần đầu tiên, bạn sẽ truy cập vào tài khoản dưới danh nghĩa của *root user*.
-
-{{% notice note %}}
-Chính vì quyền hạn của **root user** không thể bị giới hạn, AWS khuyên bạn không nên sử dụng trực tiếp *root user* cho bất kỳ công tác nào. Thay vào đó, bạn nên tạo ra một *IAM User* và trao quyền quản trị cho *IAM User* đó để dễ dàng quản lý và giảm thiểu rủi ro.
-{{% /notice %}}
-
-#### MFA (Multi-factor Authentication)
-**MFA** là một tính năng được sử dụng để gia tăng bảo mật của tài khoản AWS. Nếu MFA được kích hoạt, bạn sẽ phải nhập mã OTP (One-time Password) mỗi lần bạn đăng nhập vào tài khoản AWS.
-
-#### IAM Group 
-**IAM Group**  là một công cụ quản lý người dùng (*IAM User*) của AWS. Một IAM Group có thể chứa nhiều IAM User. Các IAM User ở trong một IAM Group đều hưởng chung quyền hạn mà IAM Group đó được gán cho.
-
-#### IAM User
-**IAM User** là một đơn vị người dùng của AWS. Khi bạn đăng nhập vào AWS, bạn sẽ phải đăng nhập dưới danh nghĩa của một IAM User. Nếu bạn mới đăng nhập vào AWS lần đầu tiên, bạn sẽ đăng nhập dưới danh nghĩa của *root user* (tạm dịch là người dùng gốc). Ngoài *root user* ra, bạn có thể tạo ra nhiều IAM User khác để cho phép người khác truy cập **dài hạn** vào tài nguyên AWS trong tài khoản AWS của bạn.
+# **Amazon Bedrock Agent Workshop: Tích hợp khả năng biên dịch Code**  
 
 
-#### AWS Support
-**AWS Support** là một đơn vị cung cấp các dịch vụ hỗ trợ khách hàng của AWS.
+![architecture](architecture-workshop-04-bedrock-agent.png)
+
+#### **Tổng quan**  
+
+Trong workshop này, bạn sẽ tìm hiểu cách xây dựng, triển khai và sử dụng **Amazon Bedrock Agent** với khả năng **biên dịch và thực thi code**. Bạn sẽ được hướng dẫn từng bước để thiết lập môi trường, cấu hình truy cập các Foundation Models và tạo dữ liệu mẫu để thử nghiệm.  
+
+Bên cạnh đó, bạn sẽ thực hành cách **tương tác với Agent**, giúp nó trả lời các câu hỏi toán học, xử lý file, diễn giải mã nguồn, tạo biểu đồ trực quan và tự động tạo tài liệu.  
+
+Sau khi hoàn thành workshop, bạn sẽ có được:  
+✅ **Hiểu biết sâu** về Amazon Bedrock và cách xây dựng Bedrock Agent.  
+✅ **Kỹ năng triển khai** một Agent có khả năng biên dịch và thực thi code.  
+✅ **Khả năng tích hợp** Bedrock Agent vào các ứng dụng thực tế.  
+✅ **Kiến thức về tối ưu hóa chi phí** và cách quản lý tài nguyên hiệu quả.  
+
+Hãy cùng bắt đầu khám phá **Amazon Bedrock Agent** và những tiềm năng mà nó mang lại! 🚀  
 
 
-#### Nội dung chính
+#### Nội dung
 
-1. [Tạo tài khoản AWS](1-create-new-aws-account/)
-2. [Thiết lập MFA cho tài khoản AWS (Root)](2-mfa-setup-for-aws-user-(root)/)
-3. [Tài khoản và Nhóm Admin](3-create-admin-user-and-group/)
-4. [Hỗ trợ Xác thực Tài khoản](4-verify-new-account/)
+1. [Cơ sở lý thuyết](1-theory)
+2. [Chuẩn bị](2-prerequisites)
+3. [Triển khai Amazon Bedrock Agent](3-developing-amazon-bedrock-agent)
+4. [Thực thi Agent](4-invoking-agent)
+5. [Dọn dẹp tài nguyên](5-resource-clean-up)
+6. [Kết luận](6-conclusion)
