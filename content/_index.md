@@ -7,7 +7,7 @@ chapter: false
 # **Amazon Bedrock Agent Workshop: Integrating Code Interpretation Capabilities**  
 
 
-![architecture](architecture-workshop-04-bedrock-agent.png)
+![architecture](/images/architecture-workshop-04-bedrock-agent.png)
 
 #### **Overview**  
 

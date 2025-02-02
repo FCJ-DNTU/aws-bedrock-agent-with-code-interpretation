@@ -49,4 +49,4 @@ iam_client.delete_role(
 ) 
 ```
 
-![clean-up](image.png)
+![clean-up](/images/5-resource-clean-up/image.png)
