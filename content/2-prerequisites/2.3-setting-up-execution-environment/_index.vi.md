@@ -17,11 +17,11 @@ pre: " <b> 2.3 </b> "
 - Truy cập [Google Colab Console](https://colab.research.google.com/)  
 - Chọn **"New Notebook"** để tạo một tệp Notebook mới.  
 
-![google-colab](image-1.png)
+![google-colab](/images/2-prerequisites/2.3-setting-up-execution-environment/image-1.png)
 
 - Tạo mới thành công
 
-![new-notebook-successfully](image.png)
+![new-notebook-successfully](/images/2-prerequisites/2.3-setting-up-execution-environment/image.png)
 
 ---
 
@@ -45,7 +45,7 @@ Khi chạy lệnh `aws configure`, bạn cần nhập thông tin sau:
 !aws configure
 ```
 
-![aws-configure](image-2.png)
+![aws-configure](/images/2-prerequisites/2.3-setting-up-execution-environment/image-2.png)
 
 ---
 
@@ -72,7 +72,7 @@ print("Botocore Version:", botocore.__version__)
 print("AWS CLI Version:", awscli.__version__)
 ```
 
-![install-packages](image-3.png)
+![install-packages](/images/2-prerequisites/2.3-setting-up-execution-environment/image-3.png)
 
 ---
 

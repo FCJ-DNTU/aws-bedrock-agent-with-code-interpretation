@@ -12,7 +12,7 @@ Amazon Bedrock là một dịch vụ được quản lý toàn diện, giúp cá
 
 #### **Giới thiệu về Amazon Bedrock Agent** 
 
-Amazon Bedrock Agent giúp các ứng dụng **AI sinh tạo (Generative AI)** thực hiện các tác vụ nhiều bước bằng cách kết nối với **hệ thống, API và nguồn dữ liệu** của doanh nghiệp.  
+Amazon Bedrock Agent giúp các ứng dụng **AI tạo sinh (Generative AI)** thực hiện các tác vụ nhiều bước bằng cách kết nối với **hệ thống, API và nguồn dữ liệu** của doanh nghiệp.  
 
 Agent sử dụng khả năng **lập luận của Foundation Models (FMs)** kết hợp với API và dữ liệu để **phân tích yêu cầu của người dùng, truy xuất thông tin cần thiết và hoàn thành tác vụ một cách hiệu quả**.  
 
@@ -27,7 +27,7 @@ Trong workshop này, chúng ta sẽ sử dụng **Foundation Model [Claude 3 Son
 
 Sơ đồ dưới đây minh họa cách **Amazon Bedrock Agent** kết hợp với **Code Interpreter** để xử lý các tác vụ phân tích dữ liệu, trực quan hóa và tính toán phức tạp.  
 
-![architecture](../architecture-workshop-04-bedrock-agent.png)
+![architecture](/images/architecture-workshop-04-bedrock-agent.png)
 
 **Luồng xử lý chính:**  
 1. **Người dùng (Customer)** gửi câu hỏi hoặc tải lên tệp dữ liệu.  
@@ -49,7 +49,7 @@ Sơ đồ dưới đây minh họa cách **Amazon Bedrock Agent** kết hợp v�
 **1. Multi-agent collaboration – Hợp tác giữa nhiều Agent**  
 Tính năng này giúp các nhà phát triển dễ dàng **tạo, triển khai và quản lý nhiều Agent chuyên biệt**, cho phép chúng làm việc cùng nhau để xử lý các quy trình kinh doanh phức tạp.  
 
-![alt text](image.png)
+![multi-agent](/images/1-theory/image.png)
 
 **2. Retrieval-Augmented Generation (RAG) – Truy xuất dữ liệu để tăng cường khả năng sinh văn bản**  
 Agent có thể **kết nối với các nguồn dữ liệu của doanh nghiệp** để cung cấp câu trả lời chính xác cho người dùng.  
@@ -61,7 +61,7 @@ Agent có thể **kết nối với các nguồn dữ liệu của doanh nghiệ
 
 👉 **Lợi ích:** Giúp AI trả lời những câu hỏi mà dữ liệu không có sẵn trong mô hình, nhưng có thể lấy từ nguồn bên ngoài.  
 
-![alt text](image-1.png)
+![rag](/images/1-theory/image-1.png)
 
 **3. Orchestrate and execute multistep tasks – Điều phối và thực hiện tác vụ nhiều bước**  
 Người dùng có thể chọn một **mô hình AI** và viết hướng dẫn đơn giản, chẳng hạn:  
@@ -74,12 +74,12 @@ Amazon Bedrock Agent có thể **ghi nhớ thông tin từ các lần tương t�
 
 Ví dụ, nếu người dùng đã hỏi về **tồn kho sản phẩm X** trước đó, Agent có thể nhớ thông tin này và không yêu cầu nhập lại trong các truy vấn tiếp theo.  
 
-![alt text](image-2.png)
+![memory](/images/1-theory/image-2.png)
 
 **5. Code interpretation – Diễn giải và thực thi mã nguồn**  
 Agent có thể **tạo và thực thi mã nguồn trong môi trường an toàn**, giúp tự động hóa các truy vấn phân tích phức tạp.  
 
-![alt text](image-3.png)
+![code-interpretation](/images/1-theory/image-3.png)
 
 👉 **Ứng dụng:**  
 ✅ **Phân tích dữ liệu**  

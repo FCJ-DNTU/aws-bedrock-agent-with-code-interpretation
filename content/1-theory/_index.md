@@ -1,53 +1,107 @@
-+++
-title = "Hello world"
-date = 2020-05-14T00:38:32+07:00
-weight = 1
-chapter = false
-pre = "<b>1. </b>"
-+++
+---
+
+title: "Introduction to Amazon Bedrock Agent"
+weight: 1
+chapter: false
+pre: " <b> 1. </b> "
+---
+
+#### **Overview of Amazon Bedrock**  
+Amazon Bedrock is a fully managed service that enables businesses to easily and efficiently access and use high-performance **Foundation Models (FMs)**.  
+
+---
+
+#### **Introduction to Amazon Bedrock Agent**  
+
+Amazon Bedrock Agent enables **Generative AI** applications to perform multi-step tasks by connecting to **enterprise systems, APIs, and data sources**.  
+
+The Agent leverages the **reasoning capabilities of Foundation Models (FMs)** combined with APIs and data to **analyze user requests, retrieve necessary information, and complete tasks efficiently**.  
+
+{{% notice note %}}
+In this workshop, we will use the **Foundation Model [Claude 3 Sonnet](https://aws.amazon.com/blogs/aws/anthropics-claude-3-sonnet-foundation-model-is-now-available-in-amazon-bedrock/#:~:text=Introduction%20of%20Anthropic%E2%80%99s%20Claude%203%20Sonnet)**.
+{{% /notice %}}
 
 
-**Content:**
-- [Create an AWS Account](#create-an-aws-account)
-- [Add a payment method](#add-a-payment-method)
-- [Verify your phone number](#verify-your-phone-number)
-- [Choose an AWS Support plan](#choose-an-aws-support-plan)
-- [Wait for your account to be activated](#wait-for-your-account-to-be-activated)
+---
 
-#### Create an AWS Account
+#### **Architecture Analysis of Amazon Bedrock Agent with Code Interpreter**  
 
-1. Go to the [Amazon Web Services (AWS) home page](https://aws.amazon.com/).
-2. Click **Create an AWS Account** in the top right corner. 
-   - **Note:**  If you signed in to AWS recently, click **Sign in to the Console**. If **Create a new AWS account** isn't visible, first click on **Sign in to a different account**, and then click **Create a new AWS account**.
-3. Enter the account information and and then select **Continue**. 
-   - **Important**: Make sure you enter the correct information, especially email.
-4. Select the type of account. 
-   - **Note**: Personal and Professional both share the same features.
-5. Enter your company or personal information.
-   - **Important**: For professional AWS accounts, it's a best practice to enter the company phone number rather than a personal cell phone.
-6. Read and agree to the [AWS Customer Agreement](https://aws.amazon.com/agreement/).
-7. Select **Create Account** and **Continue**.
+The diagram below illustrates how **Amazon Bedrock Agent** integrates with **Code Interpreter** to handle data analysis, visualization, and complex computation tasks.  
 
-#### Add a payment method
+![architecture](/images/architecture-workshop-04-bedrock-agent.png)
 
-On the Payment Information page, enter the information about your payment method, and then choose **Verify and Add**.
-- **Note:** If you want to use a different billing address for your AWS billing information, select **Use a new address** before you select **Verify and Add**.
+**Main Workflow:**  
+1. **Customer** submits a query or uploads a data file.  
+2. **Analytics Agent** in Amazon Bedrock receives the query and generates a response based on the Large Language Model (LLM). If code execution is required, the agent forwards the task to **Code Interpreter**.  
+3. **Code Interpreter** receives the input file or processing request, performs calculations, analysis, or data visualization.  
+4. Upon completion, **Code Interpreter** generates output files and sends the results back to **Analytics Agent**.  
+5. **Analytics Agent** consolidates the information and responds to the customer.  
 
-#### Verify your phone number
-1. Choose your country or region code from the list.
-2. Enter a phone number where you can be reached in the next few minutes.
-3. Enter the code displayed in the CAPTCHA, and then submit.
-4. In a few moments, an automated system contacts you.
-5. Enter the PIN you receive, and then choose Continue.
+**File Processing Workflow:**  
+- Customers can **upload data files** for processing.  
+- **Analytics Agent** shares these files with **Code Interpreter**.  
+- **Code Interpreter** executes code on the input files and generates **output files**.  
+- These output files are shared with the customer for download or further use.  
 
-#### Choose an AWS Support plan
+---
 
-- On the **Select a Support Plan** page, choose one of the available Support plans. For a description of the available Support plans and their benefits, see [Compare AWS Support Plans](https://aws.amazon.com/premiumsupport/plans/).
+#### **Key Features and Applications of Amazon Bedrock Agent**  
 
-#### Wait for your account to be activated
+**1. Multi-agent Collaboration**  
+This feature allows developers to easily **create, deploy, and manage specialized Agents**, enabling them to work together to handle complex business processes.  
+
+![alt text](/images/1-theory/image.png)
+
+**2. Retrieval-Augmented Generation (RAG)**  
+The Agent can **connect to enterprise data sources** to provide accurate responses to customer queries.  
+
+🔹 **Example:** A customer asks: *"How did the history of Python begin?"*  
+- **Step 1:** The AI searches for information from an external source (e.g., Wikipedia).  
+- **Step 2:** The AI synthesizes and generates a response based on the retrieved data.  
+- **Result:** *"Python was created by Guido van Rossum in 1991 to make programming more readable and efficient."*  
+
+👉 **Benefit:** Enables the AI to answer questions for which data is not available in the model but can be retrieved from external sources.  
+
+![alt text](/images/1-theory/image-1.png)
+
+**3. Orchestrate and Execute Multi-step Tasks**  
+Customers can select an **AI model** and provide simple instructions, such as:  
+*"You are a warehouse management Agent, help identify available products in the system."*  
+
+The Agent will **analyze the task, break it down into logical steps**, and automatically call the necessary APIs to complete the request.  
+
+**4. Memory Retention Across Interactions**  
+Amazon Bedrock Agent can **retain information from previous interactions**, providing a seamless and personalized experience.  
+
+For example, if a customer previously inquired about **inventory for product X**, the Agent can remember this information and avoid requesting it again in subsequent queries.  
+
+![alt text](/images/1-theory/image-2.png)
+
+**5. Code Interpretation**  
+The Agent can **generate and execute code in a secure environment**, automating complex analytical queries.  
+
+![alt text](/images/1-theory/image-3.png)
+
+👉 **Applications:**  
+✅ **Data analysis**  
+✅ **Data visualization** (charts, graphs)  
+✅ **Solving complex mathematical problems**  
+
+**6. Prompt Engineering**  
+The Agent can **automatically generate prompt templates** from **customer instructions, action groups, and knowledge bases**.  
+Customers can also **refine inputs, orchestration plans, and model responses** to improve results.  
+
+---
+
+#### **Cost Considerations for Amazon Bedrock Agent**
+
+In this workshop, we use the **Claude 3 Sonnet** model, with specific costs as follows:  
+
+| **Anthropic models** | **Price per 1,000 input tokens** | **Price per 1,000 output tokens** | **Price per 1,000 input tokens (batch)** | **Price per 1,000 output tokens (batch)** | **Price per 1,000 input tokens (cache write)** | **Price per 1,000 input tokens (cache read)** |
+|----------------------|--------------------------------|----------------------------------|-----------------------------------------|------------------------------------------|--------------------------------------------|--------------------------------------------|
+| **Claude 3 Sonnet**  | $0.003                         | $0.015                           | $0.0015                                  | $0.0075                                   | N/A                                        | N/A                                        |
 
 
-
-After you choose a Support plan, a confirmation page indicates that your account is being activated. Accounts are usually activated within a few minutes, but the process might take up to 24 hours. \
-You can sign in to your AWS account during this time. The AWS home page might display a Complete Sign Up button during this time, even if you've completed all the steps in the sign-up process. \
-Once your account is fully activated, you will receive a confirmation email. Check your email and spam folder for the confirmation email. After you receive this email, you have full access to all AWS services.
+{{% notice info %}}
+📌 **Note:** Costs may vary depending on usage and deployment methods. Refer to the [official AWS documentation](https://aws.amazon.com/bedrock/pricing/) for more details.  
+{{% /notice %}}

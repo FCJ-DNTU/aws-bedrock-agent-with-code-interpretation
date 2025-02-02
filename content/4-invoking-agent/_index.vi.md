@@ -28,7 +28,7 @@ time.sleep(30)
 agent_alias_id = "TSTALIASID" # This ID is for testing purpose
 ```  
 
-![create-draft-version](image.png)
+![create-draft-version](/images/4-invoking-agent/image.png)
 
 ---
 

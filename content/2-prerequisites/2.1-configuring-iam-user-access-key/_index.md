@@ -1,53 +1,52 @@
-+++
-title = "Hello world"
-date = 2020-05-14T00:38:32+07:00
-weight = 1
-chapter = false
-pre = "<b>1. </b>"
-+++
+---
+title: "Configuring IAM User Access Key"
+weight: 1
+chapter: false
+pre: " <b> 2.1 </b> "
+---
 
+#### Step 1: Log in to the AWS Management Console
+Log in to the AWS Management Console using your Root User or an account with administrative privileges.
 
-**Content:**
-- [Create an AWS Account](#create-an-aws-account)
-- [Add a payment method](#add-a-payment-method)
-- [Verify your phone number](#verify-your-phone-number)
-- [Choose an AWS Support plan](#choose-an-aws-support-plan)
-- [Wait for your account to be activated](#wait-for-your-account-to-be-activated)
+#### Step 2: Access the Identity and Access Management (IAM) Service
+After successfully logging in, navigate to the **Identity and Access Management** (IAM) service from the main Console interface.
 
-#### Create an AWS Account
+![iam-interface](/images/2-prerequisites/2.1-configuring-iam-user-access-key/image.png)
 
-1. Go to the [Amazon Web Services (AWS) home page](https://aws.amazon.com/).
-2. Click **Create an AWS Account** in the top right corner. 
-   - **Note:**  If you signed in to AWS recently, click **Sign in to the Console**. If **Create a new AWS account** isn't visible, first click on **Sign in to a different account**, and then click **Create a new AWS account**.
-3. Enter the account information and and then select **Continue**. 
-   - **Important**: Make sure you enter the correct information, especially email.
-4. Select the type of account. 
-   - **Note**: Personal and Professional both share the same features.
-5. Enter your company or personal information.
-   - **Important**: For professional AWS accounts, it's a best practice to enter the company phone number rather than a personal cell phone.
-6. Read and agree to the [AWS Customer Agreement](https://aws.amazon.com/agreement/).
-7. Select **Create Account** and **Continue**.
+#### Step 3: Create a New User
+1. In the IAM interface, go to the **Users** tab and select **Create user**.
+2. In the **Specify user details** section, enter the username in the **User name** field.
+3. Select **Provide user access to the AWS Management Console**.
+4. Under **Console Password**, choose **Custom Password** and enter the desired password for the user.
+5. Uncheck **User must create a new password at next sign-in** if you do not require the user to change their password upon first login.
+6. Select **Next** to continue.
 
-#### Add a payment method
+![step-1](/images/2-prerequisites/2.1-configuring-iam-user-access-key/image-1.png)
 
-On the Payment Information page, enter the information about your payment method, and then choose **Verify and Add**.
-- **Note:** If you want to use a different billing address for your AWS billing information, select **Use a new address** before you select **Verify and Add**.
+#### Step 4: Configure Access Permissions
+1. In the **Set Permissions** interface, select the `AdministratorAccess` policy to grant full access to the user.
+2. Select **Next** to continue.
 
-#### Verify your phone number
-1. Choose your country or region code from the list.
-2. Enter a phone number where you can be reached in the next few minutes.
-3. Enter the code displayed in the CAPTCHA, and then submit.
-4. In a few moments, an automated system contacts you.
-5. Enter the PIN you receive, and then choose Continue.
+![step-2](/images/2-prerequisites/2.1-configuring-iam-user-access-key/image-2.png)
 
-#### Choose an AWS Support plan
+#### Step 5: Confirm User Creation
+Review the results and confirm that the user has been successfully created.
 
-- On the **Select a Support Plan** page, choose one of the available Support plans. For a description of the available Support plans and their benefits, see [Compare AWS Support Plans](https://aws.amazon.com/premiumsupport/plans/).
+![step-4](/images/2-prerequisites/2.1-configuring-iam-user-access-key/image-3.png)
 
-#### Wait for your account to be activated
+#### Step 6: Create an Access Key for the User
+1. Click on the newly created user.
+2. Navigate to the **Security Credentials** tab.
+3. Under **Access Keys**, select **Create access key**.
 
+![manage-access-key](/images/2-prerequisites/2.1-configuring-iam-user-access-key/image-4.png)
 
+#### Step 7: Save the Access Key and Secret Key
+1. In the **Access key best practices & alternatives** interface, select the use case **Command Line Interface (CLI)**.
+2. Select **Next** to continue.
 
-After you choose a Support plan, a confirmation page indicates that your account is being activated. Accounts are usually activated within a few minutes, but the process might take up to 24 hours. \
-You can sign in to your AWS account during this time. The AWS home page might display a Complete Sign Up button during this time, even if you've completed all the steps in the sign-up process. \
-Once your account is fully activated, you will receive a confirmation email. Check your email and spam folder for the confirmation email. After you receive this email, you have full access to all AWS services.
+![use-cases](/images/2-prerequisites/2.1-configuring-iam-user-access-key/image-5.png)
+
+3. Save the **Access Key** and **Secret Key** displayed in the **Retrieve Access Key** interface for use in related applications or tools.
+
+![sucessfully-created](/images/2-prerequisites/2.1-configuring-iam-user-access-key/image-6.png)

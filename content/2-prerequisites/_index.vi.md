@@ -19,6 +19,6 @@ Trong phần này, chúng ta sẽ thực hiện các bước chuẩn bị cần 
 ### **Nội dung**  
 
 - [Cấu hình IAM User Access Key](2.1-configuring-iam-user-access-key)  
-- [Thiết lập môi trường thực thi](2.2-setting-up-execution-environment)  
-- [Cấu hình quyền truy cập vào foundation models](2.3-configuring-access-to-foundation-model)  
+- [Cấu hình quyền truy cập vào foundation models](2.2-configuring-access-to-foundation-model)  
+- [Thiết lập môi trường thực thi](2.3-setting-up-execution-environment)  
 - [Tạo dữ liệu chứng khoán giả lập](2.4-generating-synthetic-stock-data)  

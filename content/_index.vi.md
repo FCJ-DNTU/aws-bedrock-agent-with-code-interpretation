@@ -26,7 +26,7 @@ Hãy cùng bắt đầu khám phá **Amazon Bedrock Agent** và những tiềm n
 
 #### Nội dung
 
-1. [Cơ sở lý thuyết](1-theory)
+1. [Giới thiệu Amazon Bedrock Agent](1-theory)
 2. [Chuẩn bị](2-prerequisites)
 3. [Triển khai Amazon Bedrock Agent](3-developing-amazon-bedrock-agent)
 4. [Thực thi Agent](4-invoking-agent)

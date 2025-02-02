@@ -1,53 +1,171 @@
-+++
-title = "Hello world"
-date = 2020-05-14T00:38:32+07:00
-weight = 1
-chapter = false
-pre = "<b>1. </b>"
-+++
+---
+title: "Setting Up the Code Execution Environment"
+weight: 3
+chapter: false
+pre: " <b> 2.3 </b> "
+---
 
+#### **1. Introduction**  
+To run and test Amazon Bedrock Agent, we need to set up a code execution environment. You can use **Google Colab** or run it **locally**. In this guide, we will use **Jupyter Notebook on Google Colab** as the programming environment.  
 
-**Content:**
-- [Create an AWS Account](#create-an-aws-account)
-- [Add a payment method](#add-a-payment-method)
-- [Verify your phone number](#verify-your-phone-number)
-- [Choose an AWS Support plan](#choose-an-aws-support-plan)
-- [Wait for your account to be activated](#wait-for-your-account-to-be-activated)
+---
 
-#### Create an AWS Account
+#### **2. Initializing Jupyter Notebook on Google Colab**  
 
-1. Go to the [Amazon Web Services (AWS) home page](https://aws.amazon.com/).
-2. Click **Create an AWS Account** in the top right corner. 
-   - **Note:**  If you signed in to AWS recently, click **Sign in to the Console**. If **Create a new AWS account** isn't visible, first click on **Sign in to a different account**, and then click **Create a new AWS account**.
-3. Enter the account information and and then select **Continue**. 
-   - **Important**: Make sure you enter the correct information, especially email.
-4. Select the type of account. 
-   - **Note**: Personal and Professional both share the same features.
-5. Enter your company or personal information.
-   - **Important**: For professional AWS accounts, it's a best practice to enter the company phone number rather than a personal cell phone.
-6. Read and agree to the [AWS Customer Agreement](https://aws.amazon.com/agreement/).
-7. Select **Create Account** and **Continue**.
+**Step 1: Create a New Notebook on Google Colab**  
+- Access the [Google Colab Console](https://colab.research.google.com/)  
+- Select **"New Notebook"** to create a new Notebook file.  
 
-#### Add a payment method
+![google-colab](/images/2-prerequisites/2.3-setting-up-execution-environment/image-1.png)
 
-On the Payment Information page, enter the information about your payment method, and then choose **Verify and Add**.
-- **Note:** If you want to use a different billing address for your AWS billing information, select **Use a new address** before you select **Verify and Add**.
+- Successfully created a new notebook.
 
-#### Verify your phone number
-1. Choose your country or region code from the list.
-2. Enter a phone number where you can be reached in the next few minutes.
-3. Enter the code displayed in the CAPTCHA, and then submit.
-4. In a few moments, an automated system contacts you.
-5. Enter the PIN you receive, and then choose Continue.
+![new-notebook-successfully](/images/2-prerequisites/2.3-setting-up-execution-environment/image.png)
 
-#### Choose an AWS Support plan
+---
 
-- On the **Select a Support Plan** page, choose one of the available Support plans. For a description of the available Support plans and their benefits, see [Compare AWS Support Plans](https://aws.amazon.com/premiumsupport/plans/).
+#### **3. Installing & Configuring AWS CLI**  
 
-#### Wait for your account to be activated
+**Step 2: Install AWS CLI V2**  
+Run the following command to install AWS CLI:  
 
+```python
+!pip install awscli
+```
 
+**Step 3: Configure AWS CLI**  
+When running the `aws configure` command, you need to enter the following information:  
+- **AWS Access Key ID** – IAM User's Access Key ID  
+- **AWS Secret Access Key** – IAM User's Secret Access Key  
+- **Default region name** – Select the execution region (`us-east-1` supports Claude 3.0 Sonnet)  
+- **Default output format** – Choose `json`  
 
-After you choose a Support plan, a confirmation page indicates that your account is being activated. Accounts are usually activated within a few minutes, but the process might take up to 24 hours. \
-You can sign in to your AWS account during this time. The AWS home page might display a Complete Sign Up button during this time, even if you've completed all the steps in the sign-up process. \
-Once your account is fully activated, you will receive a confirmation email. Check your email and spam folder for the confirmation email. After you receive this email, you have full access to all AWS services.
+```python
+!aws configure
+```
+
+![aws-configure](/images/2-prerequisites/2.3-setting-up-execution-environment/image-2.png)
+
+---
+
+#### **4. Updating Packages**  
+
+**Step 4: Install and Upgrade AWS SDK Libraries**  
+Before starting, update the necessary libraries to ensure you have the latest versions:  
+
+```python
+!python3 -m pip install --upgrade -q boto3
+!python3 -m pip install --upgrade -q botocore
+!python3 -m pip install --upgrade -q awscli
+```
+
+Then, check the versions of `boto3`, `botocore`, and `awscli`. The version of `boto3` should be greater than or equal to **1.34.139**.  
+
+```python
+import boto3
+import botocore
+import awscli
+
+print("Boto3 Version:", boto3.__version__)
+print("Botocore Version:", botocore.__version__)
+print("AWS CLI Version:", awscli.__version__)
+```
+
+![install-packages](/images/2-prerequisites/2.3-setting-up-execution-environment/image-3.png)
+
+---
+
+#### **5. Setting Up Logger & Importing Support Libraries**  
+
+**Step 5: Import Required Libraries**  
+
+```python
+import json
+import time
+from io import BytesIO
+import uuid
+import pprint
+import logging
+```
+
+**Step 6: Configure Logger to Track Progress**  
+
+```python
+logging.basicConfig(
+    format='[%(asctime)s] p%(process)s {%(filename)s:%(lineno)d} %(levelname)s - %(message)s',
+    level=logging.INFO
+)
+logger = logging.getLogger(__name__)
+```
+
+---
+
+#### **6. Establishing Connections with AWS Services**  
+
+**Step 7: Initialize Boto3 Clients**  
+We need to create **boto3 clients** to connect to AWS services such as **IAM, Lambda, and Bedrock Agent**.  
+
+```python
+# Initialize boto3 clients
+sts_client = boto3.client('sts')
+iam_client = boto3.client('iam')
+lambda_client = boto3.client('lambda')
+bedrock_agent_client = boto3.client('bedrock-agent')
+bedrock_agent_runtime_client = boto3.client('bedrock-agent-runtime')
+```
+
+---
+
+#### **7. Setting Configuration Variables**  
+
+**Step 8: Retrieve AWS Account Information**  
+We will retrieve the **Region** and **Account ID** to use during deployment.  
+
+```python
+# Retrieve AWS account information
+session = boto3.session.Session()
+region = session.region_name
+account_id = sts_client.get_caller_identity()["Account"]
+region, account_id
+```
+
+**Step 9: Set Configuration Variables**  
+
+In this step, we will set important configuration variables for Amazon Bedrock Agent. These variables define the agent's information, access permissions, foundation model, and operational instructions.  
+
+```python
+# Declare environment variables
+suffix = f"{region}-{account_id}"
+agent_name = "assistant-w-code-interpret"
+agent_bedrock_allow_policy_name = f"{agent_name}-ba-{suffix}"
+agent_role_name = f'AmazonBedrockExecutionRoleForAgents_{agent_name}'
+agent_foundation_model = "anthropic.claude-3-sonnet-20240229-v1:0"
+agent_description = "An assistant that helps write and execute Python code to answer questions and create documentation."
+agent_instruction = """
+You are an assistant that helps users answer questions and create documentation.
+You have access to a code interpreter to execute Python code.
+When encountering a task that can be solved with Python code, write the corresponding code,
+send it to the interpreter for execution, and then return the result to the user.
+"""
+agent_alias_name = f"{agent_name}-alias"
+```
+
+#### **Explanation of Configuration Variables**  
+
+- **`agent_name`**: Identifier name of the Agent.  
+- **`agent_bedrock_allow_policy_name`**: Name of the IAM policy allowing the Agent to access the Bedrock model.  
+- **`agent_role_name`**: Name of the IAM role assigned to the Agent.  
+- **`agent_foundation_model`**: Foundation model the Agent will use (Claude 3 Sonnet).  
+- **`agent_description`**: Description of the Agent's functionality.  
+- **`agent_instruction`**: Operational instructions for the Agent, defining how it processes and executes Python code.  
+- **`agent_alias_name`**: Alias of the Agent for use in subsequent requests.  
+
+📌 **Important Note**:  
+- The **`agent_instruction`** variable plays a crucial role in guiding the Agent's behavior.  
+- This Agent can automatically create, execute Python code, and use the results to assist users.  
+
+---
+
+#### **Completing the Code Execution Environment Setup**  
+
+The environment is now ready! You can now use Jupyter Notebook to deploy **Amazon Bedrock Agent** with ease. 🎯

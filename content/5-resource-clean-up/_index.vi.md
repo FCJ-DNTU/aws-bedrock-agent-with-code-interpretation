@@ -47,4 +47,6 @@ iam_client.delete_role(
 ) 
 ```
 
-![clean-up](image.png)
+Kết quả dọn dẹp thành công **(HTTPStatusCode = 200)**:
+
+![clean-up](/images/5-resource-clean-up/image.png)

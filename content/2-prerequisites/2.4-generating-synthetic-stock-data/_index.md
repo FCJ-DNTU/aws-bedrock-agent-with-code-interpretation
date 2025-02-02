@@ -1,53 +1,103 @@
-+++
-title = "Hello world"
-date = 2020-05-14T00:38:32+07:00
-weight = 1
-chapter = false
-pre = "<b>1. </b>"
-+++
+---
+title: "Generating Synthetic Stock Data"
+weight: 4
+chapter: false
+pre: " <b> 2.4 </b> "
+---
 
+#### Generating Sample Stock Data  
 
-**Content:**
-- [Create an AWS Account](#create-an-aws-account)
-- [Add a payment method](#add-a-payment-method)
-- [Verify your phone number](#verify-your-phone-number)
-- [Choose an AWS Support plan](#choose-an-aws-support-plan)
-- [Wait for your account to be activated](#wait-for-your-account-to-be-activated)
+We will create a CSV file containing stock price data for a fictional company, **FAKECO**, for demonstration purposes.  
 
-#### Create an AWS Account
+```python
+import pandas as pd
+import numpy as np
+from datetime import datetime, timedelta
 
-1. Go to the [Amazon Web Services (AWS) home page](https://aws.amazon.com/).
-2. Click **Create an AWS Account** in the top right corner. 
-   - **Note:**  If you signed in to AWS recently, click **Sign in to the Console**. If **Create a new AWS account** isn't visible, first click on **Sign in to a different account**, and then click **Create a new AWS account**.
-3. Enter the account information and and then select **Continue**. 
-   - **Important**: Make sure you enter the correct information, especially email.
-4. Select the type of account. 
-   - **Note**: Personal and Professional both share the same features.
-5. Enter your company or personal information.
-   - **Important**: For professional AWS accounts, it's a best practice to enter the company phone number rather than a personal cell phone.
-6. Read and agree to the [AWS Customer Agreement](https://aws.amazon.com/agreement/).
-7. Select **Create Account** and **Continue**.
+def make_synthetic_stock_data(filename):
+    # Define the start and end dates
+    start_date = datetime(2023, 6, 27)
+    end_date = datetime(2024, 6, 27)
 
-#### Add a payment method
+    # Create a date range
+    date_range = pd.date_range(start_date, end_date, freq='D')
 
-On the Payment Information page, enter the information about your payment method, and then choose **Verify and Add**.
-- **Note:** If you want to use a different billing address for your AWS billing information, select **Use a new address** before you select **Verify and Add**.
+    # Initialize lists to store the data
+    symbol = []
+    dates = []
+    open_prices = []
+    high_prices = []
+    low_prices = []
+    close_prices = []
+    adj_close_prices = []
+    volumes = []
 
-#### Verify your phone number
-1. Choose your country or region code from the list.
-2. Enter a phone number where you can be reached in the next few minutes.
-3. Enter the code displayed in the CAPTCHA, and then submit.
-4. In a few moments, an automated system contacts you.
-5. Enter the PIN you receive, and then choose Continue.
+    # Set the initial stock price
+    initial_price = 100.0
 
-#### Choose an AWS Support plan
+    # Generate realistic stock prices
+    for date in date_range:
+        symbol.append('FAKECO')
+        dates.append(date)
+        open_price = np.round(initial_price + np.random.uniform(-1, 1), 2)
+        high_price = np.round(open_price + np.random.uniform(0, 5), 2)
+        low_price = np.round(open_price - np.random.uniform(0, 5), 2)
+        close_price = np.round(np.random.uniform(low_price, high_price), 2)
+        adj_close_price = close_price
+        volume = np.random.randint(1000, 10000000)
 
-- On the **Select a Support Plan** page, choose one of the available Support plans. For a description of the available Support plans and their benefits, see [Compare AWS Support Plans](https://aws.amazon.com/premiumsupport/plans/).
+        open_prices.append(open_price)
+        high_prices.append(high_price)
+        low_prices.append(low_price)
+        close_prices.append(close_price)
+        adj_close_prices.append(adj_close_price)
+        volumes.append(volume)
 
-#### Wait for your account to be activated
+        initial_price = close_price
 
+    # Create a DataFrame
+    data = {
+        'Symbol': symbol,
+        'Date': dates,
+        'Open': open_prices,
+        'High': high_prices,
+        'Low': low_prices,
+        'Close': close_prices,
+        'Adj Close': adj_close_prices,
+        'Volume': volumes
+    }
 
+    stock_data = pd.DataFrame(data)
 
-After you choose a Support plan, a confirmation page indicates that your account is being activated. Accounts are usually activated within a few minutes, but the process might take up to 24 hours. \
-You can sign in to your AWS account during this time. The AWS home page might display a Complete Sign Up button during this time, even if you've completed all the steps in the sign-up process. \
-Once your account is fully activated, you will receive a confirmation email. Check your email and spam folder for the confirmation email. After you receive this email, you have full access to all AWS services.
+    # Save the DataFrame
+    stock_data.to_csv(filename, index=False)
+```
+
+```python
+# Ensure the output directory exists
+import os
+if not os.path.exists('output'):
+    os.makedirs('output')
+
+stock_file = os.path.join('output', 'FAKECO.csv')
+if not os.path.exists(stock_file):
+    make_synthetic_stock_data(stock_file)
+```
+
+#### 1. Generating Synthetic Stock Data for FAKECO  
+- Uses the `pandas`, `numpy`, and `datetime` libraries to generate stock data for the fictional company **FAKECO**.  
+- The dataset includes **trading date, opening price, highest price, lowest price, closing price, adjusted close price, and trading volume**.  
+- Time range: **June 27, 2023 – June 27, 2024**.  
+
+#### 2. Creating Randomized Stock Price Variations  
+- **Initial price**: `100.0 USD`.  
+- Each day, the **opening, highest, lowest, and closing prices** are generated randomly to simulate real market fluctuations.  
+- **Trading volume**: randomly selected between **1,000 and 10,000,000**.  
+- The data is stored in a **pandas DataFrame**.  
+
+#### 3. Saving Data to a CSV File  
+- The CSV file will be created in the `output/FAKECO.csv` directory.  
+- If the directory does not exist, it will be created automatically.  
+- If the file does not exist, the program will generate new data and save it.  
+
+![stock-data](/images/2-prerequisites/2.4-generating-synthetic-stock-data/image.png)  

@@ -11,12 +11,12 @@ pre: " <b> 2.2. </b> "
 
 Truy cập Amazon Bedrock service, tại tab **Bedrock configurations** > chọn **Model Access** > Chọn **Enable All Models** hoặc **Enable Specific Models**
 
-![bedrock-models-interface](image.png)
+![bedrock-models-interface](/images/2-prerequisites/2.2-configuring-access-to-foundation-model/image.png)
 
 Tại giao diện **Step 1: Edit model access**, tại **Base models** tìm kiếm, chọn **Claude 3 Sonnet** > Next
 
-![request-access-model](image-1.png)
+![request-access-model](/images/2-prerequisites/2.2-configuring-access-to-foundation-model/image-1.png)
 
 **Step 2: Review and Submit** > **Submit** hoàn thành
 
-![alt text](image-2.png)
+![alt text](/images/2-prerequisites/2.2-configuring-access-to-foundation-model/image-2.png)

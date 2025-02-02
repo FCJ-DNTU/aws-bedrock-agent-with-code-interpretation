@@ -81,21 +81,21 @@ if not os.path.exists(stock_file):
     make_synthetic_stock_data(stock_file)
 ```
 
-#### 1️⃣ **Tạo Dữ Liệu Giả Lập Cổ Phiếu FAKECO**  
+#### **1. Tạo Dữ Liệu Giả Lập Cổ Phiếu FAKECO**  
 - Sử dụng thư viện `pandas`, `numpy` và `datetime` để tạo dữ liệu chứng khoán cho công ty giả định **FAKECO**.
 - Dữ liệu bao gồm: **ngày giao dịch, giá mở cửa, giá cao nhất, giá thấp nhất, giá đóng cửa, giá điều chỉnh, và khối lượng giao dịch**.
 - Phạm vi thời gian: **từ 27/06/2023 đến 27/06/2024**.
 
-#### 2️⃣ **Tạo Giá Cổ Phiếu Biến Động Ngẫu Nhiên**  
+#### **2. Tạo Giá Cổ Phiếu Biến Động Ngẫu Nhiên**  
 - **Mức giá ban đầu**: `100.0 USD`.  
 - Mỗi ngày, giá **mở cửa, cao nhất, thấp nhất, và đóng cửa** được tạo ngẫu nhiên dựa trên biến động thực tế của thị trường.  
 - **Khối lượng giao dịch**: ngẫu nhiên từ **1,000 đến 10,000,000**.  
 - Dữ liệu được lưu vào **DataFrame của pandas**.
 
-#### 3️⃣ **Lưu Dữ Liệu Thành File CSV**  
+#### **3. Lưu Dữ Liệu Thành File CSV**  
 - Tệp CSV sẽ được tạo trong thư mục `output/FAKECO.csv`.  
 - Nếu thư mục chưa tồn tại, nó sẽ được tạo tự động.  
 - Nếu tệp chưa có, chương trình sẽ sinh dữ liệu mới và lưu lại.
 
-![stock-data](image.png)
+![stock-data](/images/2-prerequisites/2.4-generating-synthetic-stock-data/image.png)
 

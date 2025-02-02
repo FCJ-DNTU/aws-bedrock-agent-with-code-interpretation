@@ -80,9 +80,11 @@ iam_client.attach_role_policy(
 )
 ```
 
-![iam-policies-and-role](image.png)
+![iam-policies-and-role](/images/3-developing-amazon-bedrock-agent/image.png)
 
-![result](image-1.png)
+Kết quả hiển thị tại Amazon Console Management:
+
+![result](/images/3-developing-amazon-bedrock-agent/image-1.png)
 
 ---
 
@@ -102,18 +104,18 @@ response = bedrock_agent_client.create_agent(
     foundationModel=agent_foundation_model,
     instruction=agent_instruction
 )
-
+response
 
 # Lưu ID của agent để sử dụng ở các bước tiếp theo
 agent_id = response['agent']['agentId']
 agent_id
 ```
 
-![create-agent](image-2.png)
+![create-agent](/images/3-developing-amazon-bedrock-agent/image-2.png)
 
 Kết quả hiển thị tại Amazon Management Console:
 
-![result](image-3.png)
+![result](/images/3-developing-amazon-bedrock-agent/image-3.png)
 
 ---
 
@@ -139,4 +141,6 @@ agent_action_group_response = bedrock_agent_client.create_agent_action_group(
 agent_action_group_response
 ```
 
-![action-group-created](image-4.png)
+Kết quả tạo Agent Action Group thành công:
+
+![action-group-created](/images/3-developing-amazon-bedrock-agent/image-4.png)

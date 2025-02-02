@@ -1,41 +1,45 @@
 ---
-title: "Thực thi Amazon Bedrock Agent"
+title: "Tạo File với Trình Thông Dịch Mã"
 weight: 3
 chapter: false
 pre: " <b> 4.3. </b> "
 ---
 
-#### **Tạo file với trình thông dịch mã**
+#### **Tạo File với Trình Thông Dịch Mã**
 
-Các Agent Amazon Bedrock cũng có thể tạo và trả lại file cho người dùng. Chúng có thể tạo file bằng cách sử dụng trí thông minh gốc của mô hình để tạo các loại file, như file .CSV, hoặc bằng cách Agent viết mã sử dụng trình thông dịch mã để tạo các file nhị phân, như biểu đồ dữ liệu. Các Agent trả lại file trong dòng phản hồi.
+Các **Amazon Bedrock Agent** có khả năng tạo và trả về file cho người dùng. Chúng có thể tạo file bằng cách sử dụng trí thông minh tích hợp của mô hình để tạo các loại file như `.CSV`, hoặc bằng cách viết mã sử dụng **trình thông dịch mã (Code Interpreter)** để tạo các file nhị phân, chẳng hạn như biểu đồ dữ liệu. Các file này được trả về thông qua **dòng phản hồi (response stream)**.
 
-#### **Dòng phản hồi của Agent Bedrock**
+---
 
-Dòng phản hồi bao gồm các sự kiện, được định dạng theo JSON. Nó truyền tải dữ liệu chi tiết về quá trình suy nghĩ và hành động của Agent khi thực hiện theo [mô hình ReAct](https://aws.amazon.com/blogs/aws/preview-enable-foundation-models-to-complete-tasks-with-agents-for-amazon-bedrock/) (suy luận và hành động). Dưới đây là một số khóa quan trọng:
+#### **Dòng Phản Hồi (Response Stream) của Agent Bedrock**
 
-- 'files' chứa các file được tạo ra bởi mô hình LLM của Agent một cách tự nhiên
-- 'trace' chứa thông tin về quá trình suy nghĩ và các bước công việc của Agent. Có nhiều loại sự kiện trace:
-    - 'modelInvocationInput' chứa
-    - 'rationale' chứa lý do của Agent
-    - 'invocationInput' chứa chi tiết về các tham số gọi nhóm hành động.
-        - 'codeInterpreterInvocationInput' chứa mã mà mô hình đã tạo và đang chuyển sang trình thông dịch mã.
-    - 'observation' chứa các quan sát quan trọng, bao gồm:
-        - 'codeInterpreterInvocationOutput' chứa đầu ra cụ thể từ việc thông dịch mã:
-            - 'executionOutput' chứa kết quả của việc thực thi mã
-            - 'executionError' chứa lỗi nếu có lỗi xảy ra khi thực thi mã
-            - 'files' chứa các file được tạo ra từ việc thông dịch mã
-        - 'finalResponse' chứa phản hồi cuối cùng của Agent
+Dòng phản hồi bao gồm các sự kiện được định dạng theo **JSON**, truyền tải thông tin chi tiết về quá trình suy nghĩ và hành động của Agent khi thực hiện theo [mô hình ReAct](https://aws.amazon.com/blogs/aws/preview-enable-foundation-models-to-complete-tasks-with-agents-for-amazon-bedrock/) (Reasoning and Acting). Dưới đây là một số trường quan trọng:
 
-Chúng ta sẽ định nghĩa lại hàm trợ giúp của mình để bắt các kết quả file từ dòng phản hồi. Sau đó, chúng ta sẽ sử dụng nó để lưu các file được tạo ra bởi Agent, dù thông qua trí thông minh của nó hay sử dụng thông dịch mã, và trả lại cho người dùng.
+- **'files'**: Chứa các file được tạo ra tự động bởi mô hình LLM của Agent.
+- **'trace'**: Chứa thông tin về quá trình suy nghĩ và các bước thực hiện của Agent. Có nhiều loại sự kiện trace:
+    - **'modelInvocationInput'**: Chứa các thông tin đầu vào khi gọi mô hình.
+    - **'rationale'**: Chứa lý do (rationale) mà Agent đưa ra để thực hiện hành động.
+    - **'invocationInput'**: Chứa chi tiết về các tham số khi gọi nhóm hành động.
+        - **'codeInterpreterInvocationInput'**: Chứa mã nguồn mà mô hình tạo ra và chuyển đến trình thông dịch mã.
+    - **'observation'**: Chứa các quan sát quan trọng, bao gồm:
+        - **'codeInterpreterInvocationOutput'**: Chứa kết quả cụ thể từ việc thông dịch mã:
+            - **'executionOutput'**: Kết quả thực thi mã.
+            - **'executionError'**: Lỗi nếu có trong quá trình thực thi mã.
+            - **'files'**: Các file được tạo ra từ việc thông dịch mã.
+        - **'finalResponse'**: Phản hồi cuối cùng của Agent.
 
-#### **Định nghĩa lại hàm trợ giúp**
+Chúng ta sẽ định nghĩa lại **helper function** để thu thập các file từ dòng phản hồi. Sau đó, sử dụng nó để lưu các file được tạo bởi Agent, dù thông qua trí thông minh của mô hình hay thông qua trình thông dịch mã, và trả về cho người dùng.
 
-Chúng ta sẽ định nghĩa lại hàm trợ giúp `process_response` để có thể bắt và hiển thị chi tiết phong phú hơn từ dòng phản hồi. Ở đây, chúng ta nhập IPython.display để nếu chạy trong một notebook có đầu ra hiển thị phong phú như Markdown, nó có thể hiển thị tương tác của Agent tốt hơn, chẳng hạn như nhúng các file trả lại để hiển thị. Chúng ta cần nhập thêm thư viện để xử lý notebook và hình ảnh.
+---
+
+#### **Định Nghĩa Lại Helper Function**
+
+Chúng ta sẽ định nghĩa lại hàm `process_response` để thu thập và hiển thị chi tiết phong phú hơn từ dòng phản hồi. Để hỗ trợ hiển thị trong notebook, chúng ta sử dụng thư viện `IPython.display` để hiển thị các file trả về một cách trực quan, chẳng hạn như nhúng hình ảnh hoặc hiển thị mã nguồn.
 
 ```python
 from IPython.display import display, Markdown
 import matplotlib.pyplot as plt
-import matplotlib.image as mpimg
+import matplotlib./images/4-invoking-agent/4.3-generating-files-with-code-interpreter/image as mpimg
 ```
 
 ```python
@@ -53,11 +57,11 @@ def process_response(resp, enable_trace:bool=True, show_code_use:bool=False):
                 print(f"{this_file['name']} ({this_file['type']})")
                 file_bytes = this_file['bytes']
 
-                # Lưu byte vào file, với tên file và byte 
+                # Lưu byte vào file
                 file_name = os.path.join('output', this_file['name'])
                 with open(file_name, 'wb') as f:
                     f.write(file_bytes)
-                if this_file['type'] == 'image/png' or this_file['type'] == 'image/jpeg':
+                if this_file['type'] == '/images/4-invoking-agent/4.3-generating-files-with-code-interpreter/image/png' or this_file['type'] == '/images/4-invoking-agent/4.3-generating-files-with-code-interpreter/image/jpeg':
                     img = mpimg.imread(file_name)
                     plt.imshow(img)
                     plt.show()
@@ -100,9 +104,11 @@ def process_response(resp, enable_trace:bool=True, show_code_use:bool=False):
                     return final_resp
 ```
 
-#### **Tạo file bằng cách sinh mã**
+---
 
-Chúng ta sẽ yêu cầu Agent tạo một file, mà nó sẽ trả lại qua dòng phản hồi.
+#### **Tạo File sử dụng Code Generation**
+
+Chúng ta sẽ yêu cầu Agent tạo một file, và file này sẽ được trả về thông qua dòng phản hồi.
 
 ```python
 query = """
@@ -113,11 +119,13 @@ invoke_agent_helper(query, session_id, agent_id, agent_alias_id, enable_trace=Fa
                     memory_id=memory_id, show_code_use=True)
 ```
 
-![generates-files](image.png)
+![generates-files](/images/4-invoking-agent/4.3-generating-files-with-code-interpreter/image.png)
 
-#### **Tạo biểu đồ bằng cách thông dịch mã**
+---
 
-Chúng ta sẽ gửi cùng một file dữ liệu giá cổ phiếu như trước, nhưng lần này yêu cầu một biểu đồ. Agent của chúng ta sẽ cần viết mã Python để tạo biểu đồ. Trình phân tích dòng phản hồi được tăng cường bằng markdown sẽ hiển thị biểu đồ vào trong notebook.
+#### **Tạo Biểu Đồ bằng Cách Thông Dịch Mã**
+
+Chúng ta sẽ gửi cùng một file dữ liệu giá cổ phiếu như trước, nhưng lần này yêu cầu Agent tạo một biểu đồ. Agent sẽ viết mã Python để tạo biểu đồ, và trình phân tích dòng phản hồi sẽ hiển thị biểu đồ trực tiếp trong notebook.
 
 ```python
 # Gọi Agent và xử lý dòng phản hồi
@@ -128,9 +136,14 @@ sessionState=add_file_to_session_state(stock_file, 'CODE_INTERPRETER')
 invoke_agent_helper(query, session_id, agent_id, agent_alias_id, enable_trace=True, session_state=sessionState,
                     memory_id=memory_id, show_code_use=True)
 ```
-![gen-charts](image-1.png)
 
-#### **Tạo dữ liệu tổng hợp và phân tích**
+![gen-charts](/images/4-invoking-agent/4.3-generating-files-with-code-interpreter/image-1.png)
+
+---
+
+#### **Tạo Dữ Liệu Tổng Hợp và Phân Tích**
+
+Chúng ta sẽ yêu cầu Agent tạo hai file CSV và thực hiện phân tích dữ liệu.
 
 ```python
 # Gọi Agent và xử lý dòng phản hồi
@@ -153,4 +166,4 @@ invoke_agent_helper(query, session_id, agent_id, agent_alias_id, enable_trace=Tr
                     memory_id=memory_id, show_code_use=True)
 ```
 
-![analytics](image-2.png)
+![analytics](/images/4-invoking-agent/4.3-generating-files-with-code-interpreter/image-2.png)

@@ -17,7 +17,7 @@ query = "Please generate a 10 character long string of random characters"
 invoke_agent_helper(query, session_id, agent_id, agent_alias_id, enable_trace=False, memory_id=memory_id, show_code_use=True)
 ```
 
-![generate-string](image.png)
+![generate-string](/images/4-invoking-agent/4.1-invoking-code-interpreter/image.png)
 
 Tương tự, agent sẽ viết Python code và invoke code interpreter để giải bài toán toán học
 
@@ -26,7 +26,7 @@ query = "What is 75 * sin(.75)?"
 invoke_agent_helper(query, session_id, agent_id, agent_alias_id, enable_trace=False, memory_id=memory_id,
                     show_code_use=True)
 ```
-![complex-math](image-1.png)
+![complex-math](/images/4-invoking-agent/4.1-invoking-code-interpreter/image-1.png)
 
 Ngược lại, các thao tác khác mà model không cần thực thi code sẽ không invoke code interpreter
 
@@ -35,4 +35,4 @@ query = "thank you!"
 invoke_agent_helper(query, session_id, agent_id, agent_alias_id, enable_trace=False, memory_id=memory_id, show_code_use=True)
 ```
 
-![non-invoke-code](image-2.png)
+![non-invoke-code](/images/4-invoking-agent/4.1-invoking-code-interpreter/image-2.png)

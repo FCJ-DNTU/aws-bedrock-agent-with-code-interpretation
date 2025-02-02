@@ -75,7 +75,9 @@ with open(stock_file, "rb") as file_name:
 encoded_file[0:100]
 ```  
 
-Tiếp theo, ta gọi Agent để phân tích dữ liệu trong file và cung cấp thông tin. Agent sẽ nhận diện dữ liệu trong file (có chứa dữ liệu giá cổ phiếu giả lập của 'FAKECO'), sau đó phản hồi về loại dữ liệu và phạm vi ngày của dữ liệu. Lưu ý rằng Agent không cần sử dụng code interpreter để thực hiện nhiệm vụ này.  
+![base-64-encoded](/images/4-invoking-agent/4.2-sending-files-to-agent/image-2.png)
+
+Tiếp theo, ta gọi Agent để phân tích dữ liệu trong file và cung cấp thông tin. Agent sẽ nhận diện dữ liệu trong file (có chứa dữ liệu giá cổ phiếu giả lập của 'FAKECO'), sau đó phản hồi về loại dữ liệu và phạm vi ngày của dữ liệu. Lưu ý rằng Agent **không cần sử dụng code interpreter** để thực hiện nhiệm vụ này.  
 
 ```python
 # Invoke the agent and process the response stream
@@ -87,7 +89,7 @@ invoke_agent_helper(query, session_id, agent_id, agent_alias_id, enable_trace=Fa
                     memory_id=memory_id, show_code_use=True)
 ```
 
-![normal-chat](image.png)
+![normal-chat](/images/4-invoking-agent/4.2-sending-files-to-agent/image.png)
 
 #### **Truyền tệp để sử dụng với Code Interpreter**  
 
@@ -97,7 +99,7 @@ Bây giờ, khi chúng ta đã biết nội dung của tệp là dữ liệu ch�
 
 ```python
 # Gọi Agent và xử lý phản hồi
-query = "Dựa vào file dữ liệu giá kèm theo, tổng mức tăng trưởng phần trăm của giá đóng cửa trong toàn bộ chuỗi thời gian là bao nhiêu? Giá vào ngày đầu tiên và ngày cuối cùng là bao nhiêu?"
+query = "Given the attached price data file, what pct growth happened across the full time series for closing price? what was the price on the first and last days?"
 
 sessionState = add_file_to_session_state(stock_file, 'CODE_INTERPRETER')
 
@@ -105,4 +107,4 @@ invoke_Agent_helper(query, session_id, Agent_id, Agent_alias_id, enable_trace=Fa
                     memory_id=memory_id, show_code_use=True)
 ```
 
-![invoked-code-chat](image-1.png)
+![invoked-code-chat](/images/4-invoking-agent/4.2-sending-files-to-agent/image-1.png)
