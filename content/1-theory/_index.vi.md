@@ -27,7 +27,7 @@ Trong workshop này, chúng ta sẽ sử dụng **Foundation Model [Claude 3 Son
 
 Sơ đồ dưới đây minh họa cách **Amazon Bedrock Agent** kết hợp với **Code Interpreter** để xử lý các tác vụ phân tích dữ liệu, trực quan hóa và tính toán phức tạp.  
 
-![architecture](/images/architecture-workshop-04-bedrock-agent.png)
+![architecture](/images/architecture-workshop-04-bedrock-agent.svg)
 
 **Luồng xử lý chính:**  
 1. **Người dùng (Customer)** gửi câu hỏi hoặc tải lên tệp dữ liệu.  

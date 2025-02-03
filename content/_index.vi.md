@@ -6,8 +6,7 @@ chapter: false
 
 # **Amazon Bedrock Agent Workshop: Tích hợp khả năng biên dịch Code**  
 
-
-![architecture](/images/architecture-workshop-04-bedrock-agent.png)
+![architecture](/images/architecture-workshop-04-bedrock-agent.svg)
 
 #### **Tổng quan**  
 

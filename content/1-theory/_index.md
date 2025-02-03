@@ -28,7 +28,7 @@ In this workshop, we will use the **Foundation Model [Claude 3 Sonnet](https://a
 
 The diagram below illustrates how **Amazon Bedrock Agent** integrates with **Code Interpreter** to handle data analysis, visualization, and complex computation tasks.  
 
-![architecture](/images/architecture-workshop-04-bedrock-agent.png)
+![architecture](/images/architecture-workshop-04-bedrock-agent.svg)
 
 **Main Workflow:**  
 1. **Customer** submits a query or uploads a data file.  
